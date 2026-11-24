@@ -95,10 +95,12 @@
       const base = document.createElement("canvas");
       const baseCtx = base.getContext("2d");
       if (!baseCtx) return;
-      let width, height, ratio, font, glyphs;
-      let pulse = null;
+      const moving = new Map();
+      let width, height, ratio, font, fontSize, brushRadius, glyphs;
+      let pointer = null;
+      let sweep = null;
       let frame = 0;
-      let lastPulse = -Infinity;
+      let lastFrame = 0;
       function sizeWall() {
         const bounds = canvas.getBoundingClientRect();
         width = bounds.width;
@@ -109,7 +111,8 @@
         ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
         baseCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
         const narrow = width < 600;
-        const fontSize = narrow ? 9 : 11;
+        fontSize = narrow ? 9 : 11;
+        brushRadius = narrow ? 58 : 88;
         const rowStep = narrow ? 14 : 17;
         font = fontSize + "px ui-monospace, Menlo, Consolas, monospace";
         baseCtx.font = font;
@@ -138,45 +141,114 @@
             const value = Math.round(9 + grain * (11 + 62 * rim + 34 * shoulder) * inside);
             baseCtx.fillStyle = "rgb(" + value + "," + (value + 2) + "," + value + ")";
             baseCtx.fillText(word, x, y);
-            glyphs.push({ x, y, cx: x + length / 2, word });
+            glyphs.push({ x, y, cx: x + length / 2, length, word, value });
             x += length + wordGap;
           }
         }
-        pulse = null;
-        paint(performance.now());
+        resetWake();
       }
-      function paint(now) {
-        cancelAnimationFrame(frame);
-        frame = 0;
+
+      function drawWall() {
         ctx.clearRect(0, 0, width, height);
         ctx.drawImage(base, 0, 0, width, height);
-        if (!pulse) return;
-        const t = (now - pulse.start) / 1150;
-        if (t >= 1) { pulse = null; return; }
-        const radius = t * Math.min(width * .45, 370);
-        ctx.font = font;
-        for (const glyph of glyphs) {
-          const distance = Math.hypot(glyph.cx - pulse.x, glyph.y - pulse.y);
-          const strength = Math.max(0, 1 - Math.abs(distance - radius) / 27) * (1 - t);
-          if (strength < .02) continue;
-          ctx.fillStyle = "rgba(210,219,202," + (strength * .55) + ")";
-          ctx.fillText(glyph.word, glyph.x, glyph.y);
-        }
-        frame = requestAnimationFrame(paint);
       }
-      function ripple(event) {
-        const now = performance.now();
-        if (motion.matches || document.hidden || now - lastPulse < 420) return;
+
+      function scatterAlong({ from, to }) {
+        const dx = to.x - from.x;
+        const dy = to.y - from.y;
+        const lengthSquared = dx * dx + dy * dy;
+        const length = Math.sqrt(lengthSquared) || 1;
+        const left = Math.min(from.x, to.x) - brushRadius;
+        const right = Math.max(from.x, to.x) + brushRadius;
+        const top = Math.min(from.y, to.y) - brushRadius;
+        const bottom = Math.max(from.y, to.y) + brushRadius;
+
+        for (const glyph of glyphs) {
+          const centerY = glyph.y - fontSize * .4;
+          if (glyph.cx < left || glyph.cx > right || centerY < top || centerY > bottom) continue;
+          // Use the point nearest each word on the swept path, including between fast samples.
+          const along = ((glyph.cx - from.x) * dx + (centerY - from.y) * dy) / (lengthSquared || 1);
+          const nearest = Math.max(0, Math.min(1, along));
+          const awayX = glyph.cx - (from.x + dx * nearest);
+          const awayY = centerY - (from.y + dy * nearest);
+          const distance = Math.hypot(awayX, awayY);
+          const proximity = 1 - distance / brushRadius;
+          if (proximity <= .04) continue;
+
+          const strength = proximity * proximity * (3 - 2 * proximity);
+          const movement = moving.get(glyph) ?? { x: 0, y: 0, light: 0, energy: 0 };
+          if (strength < movement.energy) continue;
+          const directionScale = Math.max(distance, 12);
+          const spread = brushRadius * .36 * strength;
+          movement.targetX = (awayX / directionScale + .22 * dx / length) * spread;
+          movement.targetY = (awayY / directionScale + .22 * dy / length) * spread;
+          movement.energy = strength;
+          moving.set(glyph, movement);
+        }
+      }
+
+      function paint(now) {
+        frame = 0;
+        const elapsed = lastFrame ? Math.min(40, now - lastFrame) : 1000 / 60;
+        const ease = 1 - Math.exp(-elapsed / 28);
+        const fade = Math.exp(-elapsed / 105);
+        lastFrame = now;
+
+        if (sweep) scatterAlong(sweep);
+        sweep = null;
+        drawWall();
+        for (const [glyph, movement] of moving) {
+          movement.x += (movement.targetX - movement.x) * ease;
+          movement.y += (movement.targetY - movement.y) * ease;
+          movement.light += (movement.energy - movement.light) * ease;
+          movement.targetX *= fade;
+          movement.targetY *= fade;
+          movement.energy *= fade;
+
+          if (movement.energy < .008 && movement.light < .01 && Math.abs(movement.x) + Math.abs(movement.y) < .25) {
+            moving.delete(glyph);
+            continue;
+          }
+          ctx.clearRect(glyph.x - 1, glyph.y - fontSize, glyph.length + 2, fontSize + 4);
+        }
+
+        ctx.font = font;
+        for (const [glyph, movement] of moving) {
+          const blend = movement.light * .76;
+          const red = Math.round(glyph.value + (162 - glyph.value) * blend);
+          const green = Math.round(glyph.value + 2 + (202 - glyph.value - 2) * blend);
+          const blue = Math.round(glyph.value + (132 - glyph.value) * blend);
+          ctx.fillStyle = `rgb(${red},${green},${blue})`;
+          ctx.fillText(glyph.word, glyph.x + movement.x, glyph.y + movement.y);
+        }
+
+        if (moving.size) frame = requestAnimationFrame(paint);
+        else lastFrame = 0;
+      }
+
+      function followPointer(event) {
+        if (motion.matches || document.hidden || !event.isPrimary || event.pointerType === "touch") return;
         const rect = canvas.getBoundingClientRect();
-        pulse = { x: event.clientX - rect.left, y: event.clientY - rect.top, start: now };
-        lastPulse = now;
+        const point = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+        sweep = { from: sweep?.from ?? pointer ?? point, to: point };
+        pointer = point;
         if (!frame) frame = requestAnimationFrame(paint);
       }
-      function stopRipple() { pulse = null; if (frame) paint(performance.now()); }
-      motion.addEventListener("change", stopRipple);
-      document.addEventListener("visibilitychange", () => { if (document.hidden) stopRipple(); });
-      document.addEventListener("pointermove", ripple, { passive: true });
-      document.addEventListener("pointerdown", ripple, { passive: true });
+
+      function resetWake() {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        lastFrame = 0;
+        pointer = sweep = null;
+        moving.clear();
+        drawWall();
+      }
+
+      motion.addEventListener("change", resetWake);
+      window.addEventListener("blur", resetWake);
+      document.addEventListener("visibilitychange", () => { if (document.hidden) resetWake(); });
+      document.documentElement.addEventListener("pointerleave", () => { pointer = sweep = null; });
+      document.addEventListener("pointermove", followPointer, { passive: true });
       new ResizeObserver(sizeWall).observe(canvas);
       sizeWall();
     })();
