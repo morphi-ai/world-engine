@@ -1,21 +1,281 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-morphi-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
   <meta name="robots" content="noindex">
-  <title>MORPHI World Engine</title>
+  <meta name="description" content="MORPHI World Engine. Coming soon.">
+  <title>MORPHI World Engine — Coming soon</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iX+WbvuWxgl8xIiBkYXRhLW5hbWU9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDgwIDg2MyI+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5jbHMtMSB7CiAgICAgICAgZmlsbDogbm9uZTsKICAgICAgfQoKICAgICAgLmNscy0yIHsKICAgICAgICBmaWxsOiAjZmZmOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Zz4KICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMzI0LjI2IiBjeT0iNTM5LjMzIiByPSIxMDcuOTUiLz4KICAgIDxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSI4NjQgNDMxLjM4IDY0OC4xIDIxNS40OSA2NDguMSA0MzEuMzggNDMyLjIxIDIxNS40OSA0MzIuMjEgNDMxLjM4IDY0OC4xIDY0Ny4yOCA2NDguMSA0MzEuMzggODY0IDY0Ny4yOCA4NjQgNDMxLjM4Ii8+CiAgPC9nPgogIDxnPgogICAgPGNpcmNsZSBjbGFzcz0iY2xzLTEiIGN4PSIxMDguOTUiIGN5PSIxMDguNDQiIHI9IjEwNy45NSIvPgogICAgPGNpcmNsZSBjbGFzcz0iY2xzLTEiIGN4PSIxMDguOTUiIGN5PSI3NTUuNDQiIHI9IjEwNy45NSIvPgogICAgPGNpcmNsZSBjbGFzcz0iY2xzLTEiIGN4PSI5NzIuMDUiIGN5PSIxMDguMTkiIHI9IjEwNy45NSIvPgogICAgPGNpcmNsZSBjbGFzcz0iY2xzLTEiIGN4PSI5NzIuMDUiIGN5PSI3NTUuMyIgcj0iMTA3Ljk1Ii8+CiAgICA8cmVjdCBjbGFzcz0iY2xzLTEiIHg9Ii41IiB5PSIuNSIgd2lkdGg9IjIxNiIgaGVpZ2h0PSI4NjMiLz4KICAgIDxyZWN0IGNsYXNzPSJjbHMtMSIgeD0iODY0LjUiIHk9Ii41IiB3aWR0aD0iMjE2IiBoZWlnaHQ9Ijg2MyIvPgogICAgPHJlY3QgY2xhc3M9ImNscy0xIiB4PSI0MzIiIHk9Ii00MzIuNSIgd2lkdGg9IjIxNiIgaGVpZ2h0PSIxMDgxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2NDggLTQzMikgcm90YXRlKDkwKSIvPgogICAgPHJlY3QgY2xhc3M9ImNscy0xIiB4PSI0MzIuNSIgeT0iMjE1LjUiIHdpZHRoPSIyMTYiIGhlaWdodD0iMTA4MCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTI5NiAyMTUpIHJvdGF0ZSg5MCkiLz4KICA8L2c+Cjwvc3ZnPg==" type="image/svg+xml">
   <style>
-    body { margin: 0; background: #fff; color: #111; font: 1rem/1.6 system-ui, sans-serif; }
-    main { margin: 0 auto; max-width: 48rem; padding: clamp(3rem, 12vw, 9rem) 1.5rem; }
-    h1 { margin: 0 0 .75rem; font-size: clamp(2.25rem, 7vw, 4rem); line-height: 1.08; }
-    p { margin: 0; color: #444; }
+    /* Montserrat attribution and license are included at the end of this file. */
+    @font-face {
+      font-family: "Montserrat";
+      src: url("data:font/ttf;base64,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") format("truetype");
+      font-weight: 500;
+      font-display: swap;
+    }
+    :root {
+      color-scheme: dark;
+      --morphi-bg: #000000;
+      --morphi-fg: #ffffff;
+      --morphi-positive-green: #A2E700;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--morphi-bg); color: var(--morphi-fg); }
+    body { font-family: "Montserrat", Arial, sans-serif; }
+    .hero {
+      isolation: isolate;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 48px 18px;
+    }
+    canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+    .identity { display: flex; align-items: center; flex-direction: column; text-align: center; }
+    .brand { width: clamp(160px, 14vw, 212px); height: auto; display: block; }
+    h1 {
+      font-size: clamp(2.3rem, 8.7vw, 9.3rem);
+      line-height: 1.05;
+      letter-spacing: -.065em;
+      font-weight: 500;
+      margin: 2px 0 0;
+    }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: clamp(25px, 4vh, 42px) 0 0;
+      color: #e0e1de;
+      font: 400 clamp(12px, 1.1vw, 15px)/1.5 ui-monospace, "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .035em;
+    }
+    .status img { width: 39px; height: 39px; }
+    @media (max-width: 600px) {
+      .brand { width: 138px; }
+      h1 { font-size: clamp(38px, 11.6vw, 66px); letter-spacing: -.06em; }
+      .status { margin-top: 20px; gap: 3px; }
+      .status img { width: 36px; height: 36px; }
+    }
+    @media print {
+      .hero { min-height: 80vh; background: #000; print-color-adjust: exact; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>MORPHI World Engine</h1>
-    <p>The research project page is in preparation.</p>
+  <main class="hero">
+    <canvas aria-hidden="true"></canvas>
+    <div class="identity">
+      <img class="brand" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iX+WbvuWxgl8xIiBkYXRhLW5hbWU9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIwIDgzOCI+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5jbHMtMSB7CiAgICAgICAgZmlsbDogbm9uZTsKICAgICAgfQoKICAgICAgLmNscy0yIHsKICAgICAgICBmaWxsOiAjZmZmOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Zz4KICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMjUwLjUiIGN5PSI0MTcuMjgiIHI9IjgzLjU1Ii8+CiAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMzM0LjA1IDMzMy43MyA1MDEuMTUgNTAwLjgzIDUwMS4xNSAzMzMuNzMgMzM0LjA1IDE2Ni42MyAzMzQuMDUgMzMzLjczIi8+CiAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iNTAxLjE1IDMzMy43MyA2NjguMjUgNTAwLjgzIDY2OC4yNSAzMzMuNzMgNTAxLjE1IDE2Ni42MyA1MDEuMTUgMzMzLjczIi8+CiAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iODc0Ljk0IDM5OC4xNSA4NDIuNCA0NjkuNjggODA5Ljg3IDM5OC4xNSA3ODAuNTggMzMzLjc0IDc1MC45OCAzMzMuNzQgNzUwLjk4IDUwMC44MiA3ODAuNTggNTAwLjgyIDc4MC41OCAzOTcuMTMgODI3LjY0IDUwMC44MiA4NDEuNDMgNTAwLjgyIDg0My4zOCA1MDAuODIgODU3LjE2IDUwMC44MiA5MDQuMjMgMzk3LjEzIDkwNC4yMyA1MDAuODIgOTMzLjgyIDUwMC44MiA5MzMuODIgMzMzLjc0IDkwNC4yMyAzMzMuNzQgODc0Ljk0IDM5OC4xNSIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTQzNy42MywzMzMuNzRoLTgxLjA4djE2Ny4wOWgyOS42di00OC42OWg1MS40OGMzMi42OSwwLDU5LjItMjYuNSw1OS4yLTU5LjJzLTI2LjUtNTkuMi01OS4yLTU5LjJaTTE0MzEuOCw0MjYuNTloLTQ1LjY1di02Ni42aDQ1LjY1YzE4LjM5LDAsMzMuMywxNC45MSwzMy4zLDMzLjNzLTE0LjkxLDMzLjMtMzMuMywzMy4zWiIvPgogICAgPHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjE2NDcuMDQgNDAyLjcyIDE1NTcuNzcgNDAyLjcyIDE1NTcuNzcgMzMzLjc0IDE1MjguMTcgMzMzLjc0IDE1MjguMTcgNTAwLjgyIDE1NTcuNzcgNTAwLjgyIDE1NTcuNzcgNDI5LjIyIDE2NDcuMDQgNDI5LjIyIDE2NDcuMDQgNTAwLjgyIDE2NzYuNjQgNTAwLjgyIDE2NzYuNjQgMzMzLjc0IDE2NDcuMDQgMzMzLjc0IDE2NDcuMDQgNDAyLjcyIi8+CiAgICA8cmVjdCBjbGFzcz0iY2xzLTIiIHg9IjE3MjMuNjYiIHk9IjMzMy43NCIgd2lkdGg9IjI5LjYiIGhlaWdodD0iMTY3LjA5Ii8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xMDU3LjU5LDMzMS41OWMtNDcuMzMsMC04NS42OSwzOC4zNi04NS42OSw4NS42OXMzOC4zNyw4NS42OSw4NS42OSw4NS42OSw4NS42OS0zOC4zNiw4NS42OS04NS42OS0zOC4zNi04NS42OS04NS42OS04NS42OVpNMTA1Ny41OSw0NzMuMzdjLTMwLjk4LDAtNTYuMDktMjUuMTEtNTYuMDktNTYuMDlzMjUuMTEtNTYuMDksNTYuMDktNTYuMDksNTYuMDksMjUuMTEsNTYuMDksNTYuMDktMjUuMTEsNTYuMDktNTYuMDksNTYuMDlaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xMzA2LjU2LDQzMi4zOGMyLjAxLTIuMDksMy44NC00LjMzLDUuNDctNi43NCwzLjEyLTQuNjIsNS40My05LjY5LDYuOTYtMTUuMjEsMS43MS01LjUzLDIuNjMtMTEuNCwyLjYzLTE3LjQ5LDAtNy4zMS0xLjM0LTE0LjMxLTMuNzYtMjAuNzhoMGMtLjI5LS43OC0uNTktMS41NS0uOTItMi4zMi0xLjItMi45NS0yLjYxLTUuNzYtNC4zMi04LjQyLS43Ny0xLjItMS42LTIuMzYtMi40Ni0zLjQ5LTEwLjc3LTE0LjY3LTI4LjE0LTI0LjItNDcuNzQtMjQuMmgtODEuMDh2MTY3LjA5aDI5LjZ2LTQ4LjY5aDQ1Ljc2bDMzLjk3LDQ4LjY5aDMzLjQybC0zNy42NS01My43OGM3LjcxLTMuNDMsMTQuNTYtOC40NSwyMC4xMi0xNC42NlpNMTI1Ni42LDQyNi41OWgtNDUuNjV2LTY2LjZoNDUuNjVjMTguMzksMCwzMy4zLDE0LjkxLDMzLjMsMzMuM3MtMTQuOTEsMzMuMy0zMy4zLDMzLjNaIi8+CiAgPC9nPgogIDxnPgogICAgPGNpcmNsZSBjbGFzcz0iY2xzLTEiIGN4PSI4My41NSIgY3k9IjgzLjI5IiByPSI4My41NSIvPgogICAgPGNpcmNsZSBjbGFzcz0iY2xzLTEiIGN4PSI4My41NSIgY3k9IjU4Ni4yOSIgcj0iODMuNTUiLz4KICAgIDxjaXJjbGUgY2xhc3M9ImNscy0xIiBjeD0iODMuNTUiIGN5PSI3NTUuMjkiIHI9IjgzLjU1Ii8+CiAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMSIgY3g9IjE4MzYuNTUiIGN5PSI3NTUuMjkiIHI9IjgzLjU1Ii8+CiAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMSIgY3g9IjE4MzYuNTUiIGN5PSI4My4yOSIgcj0iODMuNTUiLz4KICAgIDxyZWN0IGNsYXNzPSJjbHMtMSIgeD0iLjUiIHk9Ii0uNSIgd2lkdGg9IjE2NyIgaGVpZ2h0PSI4NDEiLz4KICAgIDxyZWN0IGNsYXNzPSJjbHMtMSIgeD0iMTc1My41IiB5PSItLjUiIHdpZHRoPSIxNjciIGhlaWdodD0iODQxIi8+CiAgICA8cmVjdCBjbGFzcz0iY2xzLTEiIHg9Ijg3NyIgeT0iLTIwNSIgd2lkdGg9IjE2NyIgaGVpZ2h0PSIxOTIwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzE1LjUgLTIwNS41KSByb3RhdGUoOTApIi8+CiAgICA8cmVjdCBjbGFzcz0iY2xzLTEiIHg9Ijg3Ny41IiB5PSItMzczLjUiIHdpZHRoPSIxNjciIGhlaWdodD0iMTkyMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTU0Ny41IC0zNzQuNSkgcm90YXRlKDkwKSIvPgogICAgPHJlY3QgY2xhc3M9ImNscy0xIiB4PSI4NzciIHk9Ii04NzciIHdpZHRoPSIxNjciIGhlaWdodD0iMTkyMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTA0My41IC04NzcuNSkgcm90YXRlKDkwKSIvPgogIDwvZz4KPC9zdmc+" width="1920" height="838" alt="MORPHI">
+      <h1>World Engine</h1>
+      <p class="status"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iX+WbvuWxgl8xIiBkYXRhLW5hbWU9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjguNTcgMTY4LjU3Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiBub25lOwogICAgICAgIG9wYWNpdHk6IDA7CiAgICAgICAgc3Ryb2tlOiAjYTJlNzAwOwogICAgICAgIHN0cm9rZS1taXRlcmxpbWl0OiAxMDsKICAgICAgfQoKICAgICAgLmNscy0yIHsKICAgICAgICBmaWxsOiAjYTJlNzAwOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Y2lyY2xlIGNsYXNzPSJjbHMtMSIgY3g9Ijg0LjI4IiBjeT0iODQuMjgiIHI9IjgzLjc4Ii8+CiAgPGc+CiAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwMS41MiIgY3k9IjQ5LjgxIiByPSI1LjY0Ii8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00OS44MSw2MS40MWMtMy4xMSwwLTUuNjQsMi41Mi01LjY0LDUuNjRzMi41Miw1LjY0LDUuNjQsNS42NCw1LjY0LTIuNTIsNS42NC01LjY0LTIuNTItNS42NC01LjY0LTUuNjRaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00OS44MSw3OC42NGMtMy4xMSwwLTUuNjQsMi41Mi01LjY0LDUuNjRzMi41Miw1LjY0LDUuNjQsNS42NCw1LjY0LTIuNTIsNS42NC01LjY0LTIuNTItNS42NC01LjY0LTUuNjRaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00OS44MSw5NS44OGMtMy4xMSwwLTUuNjQsMi41Mi01LjY0LDUuNjRzMi41Miw1LjY0LDUuNjQsNS42NCw1LjY0LTIuNTIsNS42NC01LjY0LTIuNTItNS42NC01LjY0LTUuNjRaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xMTguNzUsNzIuNjhjMy4xMSwwLDUuNjQtMi41Miw1LjY0LTUuNjRzLTIuNTItNS42NC01LjY0LTUuNjQtNS42NCwyLjUyLTUuNjQsNS42NCwyLjUyLDUuNjQsNS42NCw1LjY0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTE4Ljc1LDc4LjY1Yy0zLjExLDAtNS42NCwyLjUyLTUuNjQsNS42NHMyLjUyLDUuNjQsNS42NCw1LjY0LDUuNjQtMi41Miw1LjY0LTUuNjQtMi41Mi01LjY0LTUuNjQtNS42NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTY3LjA1LDQ0LjE4Yy0zLjExLDAtNS42NCwyLjUyLTUuNjQsNS42NHMyLjUyLDUuNjQsNS42NCw1LjY0LDUuNjQtMi41Miw1LjY0LTUuNjQtMi41Mi01LjY0LTUuNjQtNS42NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTg0LjI4LDU1LjQ1YzMuMTEsMCw1LjY0LTIuNTIsNS42NC01LjY0cy0yLjUyLTUuNjQtNS42NC01LjY0LTUuNjQsMi41Mi01LjY0LDUuNjQsMi41Miw1LjY0LDUuNjQsNS42NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTY3LjA1LDExMy4xMmMtMy4xMSwwLTUuNjQsMi41Mi01LjY0LDUuNjRzMi41Miw1LjY0LDUuNjQsNS42NCw1LjY0LTIuNTIsNS42NC01LjY0LTIuNTItNS42NC01LjY0LTUuNjRaIi8+CiAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijg0LjI4IiBjeT0iMTE4Ljc1IiByPSI1LjY0Ii8+CiAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwMS41MiIgY3k9IjExOC43NSIgcj0iNS42NCIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTE4Ljc1LDk1Ljg4Yy0zLjExLDAtNS42NCwyLjUyLTUuNjQsNS42NHMyLjUyLDUuNjQsNS42NCw1LjY0LDUuNjQtMi41Miw1LjY0LTUuNjQtMi41Mi01LjY0LTUuNjQtNS42NFoiLz4KICA8L2c+Cjwvc3ZnPg==" width="39" height="39" alt="">Coming soon</p>
+    </div>
   </main>
+  <script>
+    (() => {
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      // Display text only. These are generic ROS 2 and geometry examples.
+      const lines = [
+        "import rclpy    from rclpy.node import Node    from math import sin, cos",
+        "def on_timer(self):    stamp = self.get_clock().now()    elapsed = stamp - start",
+        "for index, point in enumerate(points):    x, y, z = point    radius = hypot(x, y)",
+        "timer_period = 1.0 / 30.0    timer = node.create_timer(timer_period, on_timer)",
+        "position = (x, y, z)    angle = atan2(y, x)    coordinates.append(position)",
+        "msg.header.stamp = stamp.to_msg()    frame_id = 'world'    node.get_clock()",
+        "def project(point):    x, y, z = point    return (x / z, y / z)",
+        "origin = (0.0, 0.0, 0.0)    for sample in samples:    timestamp = sample.time"
+      ];
+      const motion = matchMedia("(prefers-reduced-motion: reduce)");
+      const base = document.createElement("canvas");
+      const baseCtx = base.getContext("2d");
+      if (!baseCtx) return;
+      let width, height, ratio, font, glyphs;
+      let pulse = null;
+      let frame = 0;
+      let lastPulse = -Infinity;
+      function sizeWall() {
+        const bounds = canvas.getBoundingClientRect();
+        width = bounds.width;
+        height = bounds.height;
+        ratio = Math.min(devicePixelRatio || 1, 2);
+        canvas.width = base.width = Math.round(width * ratio);
+        canvas.height = base.height = Math.round(height * ratio);
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        baseCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        const narrow = width < 600;
+        const fontSize = narrow ? 9 : 11;
+        const rowStep = narrow ? 14 : 17;
+        font = fontSize + "px ui-monospace, Menlo, Consolas, monospace";
+        baseCtx.font = font;
+        const charWidth = baseCtx.measureText("0").width;
+        const wordGap = charWidth;
+        const unit = Math.min(width * .83, height * 1.17);
+        glyphs = [];
+        for (let row = 0, y = 0; y < height + rowStep; row++, y += rowStep) {
+          const line = lines[(row * 5 + Math.floor(row / 6)) % lines.length];
+          const words = line.split(/ +/);
+          let i = row * 3;
+          let x = -((row * 31) % 70);
+          while (x < width) {
+            const word = words[i++ % words.length];
+            const length = word.length * charWidth;
+            const dx = (x + length / 2 - width * .5) / unit;
+            const dy = (y - height * .5) / unit;
+            // Two slanted bands of illuminated text reveal an orbital cross-section.
+            const u = dx * .93 - dy * .37;
+            const v = dx * .37 + dy * .93;
+            const radius = Math.hypot(u / (narrow ? .9 : .79), v / (narrow ? .44 : .34));
+            const rim = Math.exp(-Math.pow((radius - 1.0) / .145, 2));
+            const shoulder = Math.exp(-Math.pow((radius - 1.04) / .44, 2));
+            const inside = Math.min(1, Math.hypot(dx * 1.35, dy * 2.8));
+            const grain = .65 + .35 * Math.sin(i * 16.7 + row * 7.61) ** 2;
+            const value = Math.round(9 + grain * (11 + 62 * rim + 34 * shoulder) * inside);
+            baseCtx.fillStyle = "rgb(" + value + "," + (value + 2) + "," + value + ")";
+            baseCtx.fillText(word, x, y);
+            glyphs.push({ x, y, cx: x + length / 2, word });
+            x += length + wordGap;
+          }
+        }
+        pulse = null;
+        paint(performance.now());
+      }
+      function paint(now) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        ctx.clearRect(0, 0, width, height);
+        ctx.drawImage(base, 0, 0, width, height);
+        if (!pulse) return;
+        const t = (now - pulse.start) / 1150;
+        if (t >= 1) { pulse = null; return; }
+        const radius = t * Math.min(width * .45, 370);
+        ctx.font = font;
+        for (const glyph of glyphs) {
+          const distance = Math.hypot(glyph.cx - pulse.x, glyph.y - pulse.y);
+          const strength = Math.max(0, 1 - Math.abs(distance - radius) / 27) * (1 - t);
+          if (strength < .02) continue;
+          ctx.fillStyle = "rgba(210,219,202," + (strength * .55) + ")";
+          ctx.fillText(glyph.word, glyph.x, glyph.y);
+        }
+        frame = requestAnimationFrame(paint);
+      }
+      function ripple(event) {
+        const now = performance.now();
+        if (motion.matches || document.hidden || now - lastPulse < 420) return;
+        const rect = canvas.getBoundingClientRect();
+        pulse = { x: event.clientX - rect.left, y: event.clientY - rect.top, start: now };
+        lastPulse = now;
+        if (!frame) frame = requestAnimationFrame(paint);
+      }
+      function stopRipple() { pulse = null; if (frame) paint(performance.now()); }
+      motion.addEventListener("change", stopRipple);
+      document.addEventListener("visibilitychange", () => { if (document.hidden) stopRipple(); });
+      document.addEventListener("pointermove", ripple, { passive: true });
+      document.addEventListener("pointerdown", ripple, { passive: true });
+      new ResizeObserver(sizeWall).observe(canvas);
+      sizeWall();
+    })();
+  </script>
+  <script type="text/plain" id="font-license">
+Copyright 2024 The Montserrat.Git Project Authors (https://github.com/JulietaUla/Montserrat.git)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://openfontlicense.org
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+  </script>
 </body>
 </html>
